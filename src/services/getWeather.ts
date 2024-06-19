@@ -7,8 +7,8 @@ const apiKey = import.meta.env.VITE_WEATHER_API_KEY;
 
 
 const getWeather = <T>(params: QueryParams) => {
-  const {place, days} = params;
-  return get<T>(`${url}?key=${apiKey}&q=${place}&days=${days}`);
+  const {latitude, longitude, days} = params;
+  return get<T>(`${url}?key=${apiKey}&q=${latitude},${longitude}&days=${days}`);
 };
 
 export default getWeather;

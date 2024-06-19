@@ -1,5 +1,4 @@
-export type QueryParams = {
+export type Geolocation = {
     latitude: number | undefined,
     longitude: number | undefined,
-    days: number,
 }
