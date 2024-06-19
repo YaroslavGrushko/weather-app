@@ -51,7 +51,7 @@ const Today=()=> {
                         <img src={currentIcon}/>
                         <p className="font-bold">{currentText}</p>
                     </div>
-                    <div className="w-[80%] flex flex-row overflow-x-scroll">
+                    <div className="w-[80%] flex flex-row overflow-x-auto">
                         <div className="w-fit pr-[20px]">
                             <div>Time:</div>
                             <div>Temp:</div>
