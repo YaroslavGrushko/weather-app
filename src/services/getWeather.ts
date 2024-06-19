@@ -1,11 +1,14 @@
 import get from "./http";
-import {Weather} from '../types/Weather'
+import { QueryParams } from "../types/Query";
 
 const url = "https://api.weatherapi.com/v1/forecast.json";
 const apiKey = import.meta.env.VITE_WEATHER_API_KEY;
 
-const getWeather = () => {
-  return get<Weather>(`${url}?key=${apiKey}&q=Kyiv&days=1&dt=2024-06-20`);
+
+
+const getWeather = <T>(params: QueryParams) => {
+  const {place, days} = params;
+  return get<T>(`${url}?key=${apiKey}&q=${place}&days=${days}`);
 };
 
 export default getWeather;

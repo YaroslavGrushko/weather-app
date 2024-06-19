@@ -1,28 +1,18 @@
-import {useState, useEffect} from "react"
-import getWeather from "../src/services/getWeather";
-import {Weather} from "../src/types/Weather";
-
+import {useState} from 'react';
+import Today from '../src/components/Today';
+import {
+  CURRENT_WEATHER_STATE_TODAY, 
+  CURRENT_WEATHER_STATE_THREE_DAYS, 
+  CURRENT_WEATHER_STATE_WEEK,
+  CURRENT_WEATHER_STATE_TWO_WEEKS} 
+  from '../src/consts/currentWeatherState'; ;
 function App() {
-
-  const [weather, setWeather] = useState<Weather>();
-  const current_temp = weather?.current?.temp_c;
-
-  useEffect(() => {
-    const init = async () => {
-      const data = await getWeather();
-      setWeather(data);
-    };
-    init();
-  }, []);
+const [currentState, setCurrentState] =  useState(CURRENT_WEATHER_STATE_TODAY);
+  
 
   return (
-    <div className="w-full h-full flex justify-center align-items">
-      <div>
-        <h1 className="text-3xl font-bold underline">
-          Hello world!
-        </h1>
-        <p>Current Temp: <span className="font-bold">{current_temp}</span></p>
-      </div>
+    <div className="p-[50px]">
+      {currentState===CURRENT_WEATHER_STATE_TODAY&&<Today/>}
     </div>
   )
 }
