@@ -1,15 +1,16 @@
 import {useState, useEffect} from "react"
-import getWeather from "../../src/services/getWeather";
-import {WeatherToday, WheaterPerDay, WheaterPerHour} from "../../src/types/Weather";
+import getWeather from "../services/getWeather";
+import {WeatherToday, WheaterPerDay} from "../types/Weather";
 
-const DAYS = 1;
+const DAYS = 7;
 
-const Today=()=> {
+const Week=()=> {
     const [weather, setWeather] = useState<WeatherToday>();
     const {location} = weather || {};
     const {current} = weather || {};
     const forecastday: WheaterPerDay[] = weather?.forecast?.forecastday || [];
-    const todayHours = forecastday[0]?.hour;
+    const days = forecastday;
+
     // location
     const placeName = location?.name;
     const placeRegion = location?.region;
@@ -31,7 +32,7 @@ const Today=()=> {
         init();
     }, []);
 
-    if(!todayHours) return;
+    if(!forecastday) return;
 
     return (
         <div className="w-full h-full flex justify-center align-items">
@@ -48,25 +49,26 @@ const Today=()=> {
                     </div>
                     <div className="w-[80%] flex flex-row">
                         <div className="w-fit pr-[20px]">
-                            <div>Time:</div>
-                            <div>Temp:</div>
-                            <div>Feels:</div>
-                            <div>Pressure:</div>
-                            <div>Humidity:</div>
-                            <div>Wind:</div>
+                            <div>Date:</div>
+                            <div>Max Temp:</div>
+                            <div>Max Wind:</div>
+                            <div>Rain (%):</div>
+                            <div>Icon:</div>
+                            <div>Summary:</div>
                         </div>
-                        {todayHours.map((value: WheaterPerHour)=>{
-                            const {time, temp_c, feelslike_c, pressure_mb, humidity, wind_kph} =value;
-                            const dayTime = time.split(' ')[1]; // Розділяємо рядок за пробілом і беремо другу частину (індекс 1)
-
+                        {days.map((value: WheaterPerDay)=>{
+                            const {date, day} =value;
+                            const {maxtemp_c, maxwind_kph, daily_chance_of_rain, condition} = day;
+                            const {text, icon} = condition;
+                            
                             return (
-                                <div className="pr-[20px]" key={dayTime}>
-                                    <div>{dayTime}</div>
-                                    <div>{temp_c}</div>
-                                    <div>{feelslike_c}</div>
-                                    <div>{pressure_mb}</div>
-                                    <div>{humidity}</div>
-                                    <div>{wind_kph}</div>
+                                <div className="pr-[20px]" key={date}>
+                                    <div>{date}</div>
+                                    <div>{maxtemp_c}</div>
+                                    <div>{maxwind_kph}</div>
+                                    <div>{daily_chance_of_rain}</div>
+                                    <div><img src={icon} /></div>
+                                    <div>{text}</div>
                                 </div>
                             );
                         })}
@@ -78,4 +80,4 @@ const Today=()=> {
     )
 }
 
-export default Today
+export default Week
