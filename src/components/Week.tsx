@@ -43,7 +43,7 @@ const Week=()=> {
         <div className="w-full h-full flex justify-center align-items">
             <div className="w-full h-full">
                 <h1 className="text-3xl pb-[50px]">
-                    Wheather for <span className="font-bold underline">{placeName}, {placeRegion}, {placeCountry}</span>
+                    Wheather for <span className="font-bold">{placeName}</span>, {placeRegion}, {placeCountry}
                 </h1>
                 <div className="flex flex-row w-full">
                     <div className="w-[20%] mr-[50px]">
